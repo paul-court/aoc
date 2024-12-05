@@ -1,6 +1,6 @@
 <?php
 
-namespace Year2022\Lib;
+namespace Lib;
 
 class ColumnReader
 {

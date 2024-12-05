@@ -1,6 +1,6 @@
 <?php
 
-namespace Year2022\Lib;
+namespace Lib;
 
 class GridReader
 {
@@ -16,6 +16,111 @@ class GridReader
                 $this->longestRow = count($row); 
             }
         }
+    }
+        
+    public function readNorthFromLoc(int $x, int $y, int $len): array
+    {
+        $buffer = [];
+        $count = 0;
+        while ($this->inGrid($x, $y) && $count < $len) {
+            $buffer[] = $this->atLoc($x, $y);
+            $y = $y-1;
+            $count++;
+        }
+        return $buffer;
+    }
+    
+    public function readNorthEastFromLoc(int $x, int $y, int $len): array
+    {
+        $buffer = [];
+        $count = 0;
+        while ($this->inGrid($x, $y) && $count < $len) {
+            $buffer[] = $this->atLoc($x, $y);
+            $x = $x+1;
+            $y = $y-1;
+            $count++;
+        }
+        return $buffer;
+    }
+    
+    public function readEastFromLoc(int $x, int $y, int $len): array
+    {
+        $buffer = [];
+        $count = 0;
+        while ($this->inGrid($x, $y) && $count < $len) {
+            $buffer[] = $this->atLoc($x, $y);
+            $x = $x+1;
+            $count++;
+        }
+        return $buffer;
+    }
+    
+    public function readSouthEastFromLoc(int $x, int $y, int $len): array
+    {
+        $buffer = [];
+        $count = 0;
+        while ($this->inGrid($x, $y) && $count < $len) {
+            $buffer[] = $this->atLoc($x, $y);
+            $x = $x+1;
+            $y = $y+1;
+            $count++;
+        }
+        return $buffer;
+    }
+    
+    public function readSouthFromLoc(int $x, int $y, int $len): array
+    {
+        $buffer = [];
+        $count = 0;
+        while ($this->inGrid($x, $y) && $count < $len) {
+            $buffer[] = $this->atLoc($x, $y);
+            $y = $y+1;
+            $count++;
+        }
+        return $buffer;
+    }
+    
+    public function readSouthWestFromLoc(int $x, int $y, int $len): array
+    {
+        $buffer = [];
+        $count = 0;
+        while ($this->inGrid($x, $y) && $count < $len) {
+            $buffer[] = $this->atLoc($x, $y);
+            $x = $x-1;
+            $y = $y+1;
+            $count++;
+        }
+        return $buffer;
+    }
+    
+    public function readWestFromLoc(int $x, int $y, int $len): array
+    {
+        $buffer = [];
+        $count = 0;
+        while ($this->inGrid($x, $y) && $count < $len) {
+            $buffer[] = $this->atLoc($x, $y);
+            $x = $x-1;
+            $count++;
+        }
+        return $buffer;
+    }
+    
+    public function readNorthWestFromLoc(int $x, int $y, int $len): array
+    {
+        $buffer = [];
+        $count = 0;
+        while ($this->inGrid($x, $y) && $count < $len) {
+            $buffer[] = $this->atLoc($x, $y);
+            $x = $x-1;
+            $y = $y-1;
+            $count++;
+        }
+        return $buffer;
+    }
+    
+    private function inGrid (int $x, int $y): bool
+    {
+        return isset($this->data[$y][$x]);
     }
     
     public function atLoc(int $x, int $y)
