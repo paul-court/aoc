@@ -17,6 +17,15 @@ class GridReader
             }
         }
     }
+    
+    public function walkTheGrid(): \Generator
+    {
+        for ($y = 0; $y < $this->height(); $y++) {
+            for ($x = 0; $x < $this->width(); $x++) {
+                yield [$x, $y];
+            }
+        }
+    }
         
     public function readNorthFromLoc(int $x, int $y, int $len): array
     {
@@ -118,14 +127,29 @@ class GridReader
         return $buffer;
     }
     
-    private function inGrid (int $x, int $y): bool
+    public function locOf(string $char): array
+    {
+        for ($y = 0; $y < $this->height(); $y++) {
+            if (in_array($char, $this->data[$y])) {
+                $x = array_search($char, $this->data[$y]);
+                return [$x, $y];
+            }
+        }
+    }
+    
+    public function inGrid (int $x, int $y): bool
     {
         return isset($this->data[$y][$x]);
     }
     
     public function atLoc(int $x, int $y)
     {
-        return $this->data[$y][$x];
+        return $this->data[$y][$x] ?? null;
+    }
+    
+    public function putAtLoc(string $thing, int $x, int $y)
+    {
+        $this->data[$y][$x] = $thing;
     }
     
     public function height(): int
